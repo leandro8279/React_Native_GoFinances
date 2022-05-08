@@ -53,4 +53,14 @@ export const styles = StyleSheet.create({
 		position: "absolute",
 		marginTop: RFPercentage(20),
 	},
+	transactions: {
+		flex: 1,
+		paddingHorizontal: 24,
+		marginTop: RFPercentage(12),
+	},
+	transactionsTitle:{
+		fontSize:RFValue(18),
+		fontFamily:fonts.regular,
+		marginBottom:16,
+	}
 });

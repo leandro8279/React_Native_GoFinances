@@ -1,25 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
-import {Dashboard} from "@screens/Dashboard";
+import { Dashboard } from "@screens/Dashboard";
 
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_500Medium,
-  Poppins_700Bold
-} from '@expo-google-fonts/poppins';
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 export default function App() {
-    const [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
-    Poppins_700Bold
+    Poppins_700Bold,
   });
 
-   if (!fontsLoaded) {
-    return <ActivityIndicator/>;
+  if (!fontsLoaded) {
+    return <ActivityIndicator />;
   }
   return (
-    <Dashboard />
+    <>
+      <StatusBar style="light" />
+      <Dashboard />
+    </>
   );
 }

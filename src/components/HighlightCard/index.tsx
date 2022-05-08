@@ -29,11 +29,7 @@ export function HighlightCard({
 		total: colors.shape,
 	};
 	return (
-		<View
-			style={
-				styles({type}).container
-			}
-		>
+		<View style={styles({ type }).container}>
 			<View style={styles({}).header}>
 				<Text style={styles({ type }).title}>{title}</Text>
 				<Icon name={icon[type]} color={iconColor[type]} size={RFValue(40)} />
