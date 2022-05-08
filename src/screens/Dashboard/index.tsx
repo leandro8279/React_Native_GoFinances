@@ -1,6 +1,9 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
+
+import {HighlightCard } from "@components/HighlightCard";
+
 import { styles } from "./styles";
 
 import { colors } from "@global/styles";
@@ -24,6 +27,7 @@ export function Dashboard() {
 					<Feather name="power" size={24} color={colors.secondary} />
 				</View>
 			</View>
+			<HighlightCard />
 		</View>
 	);
 }
