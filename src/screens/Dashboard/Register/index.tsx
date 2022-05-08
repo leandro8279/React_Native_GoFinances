@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-import { Input } from "@components/Form/Input";
+import { Input, Button } from "@components/index";
 import { styles } from "./styles";
 
 export function Register() {
@@ -14,6 +14,7 @@ export function Register() {
       <View style={styles.form}>
         <Input placeholder="Name" />
         <Input placeholder="Preço" />
+        <Button>Enviar</Button>
       </View>
     </View>
   );
