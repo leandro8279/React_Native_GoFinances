@@ -21,12 +21,6 @@ export function TransactionTypeButton({
   isActive,
   ...rest
 }: Props) {
-  const types = {
-    up: isActive && styles.up,
-    down: isActive && styles.down,
-  };
-  console.log(types[type]);
-
   return (
     <TouchableOpacity
       {...rest}

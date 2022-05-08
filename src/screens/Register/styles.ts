@@ -27,5 +27,7 @@ export const styles = StyleSheet.create({
   transactionsTypes: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 8,
+    marginBottom: 16,
   },
 });

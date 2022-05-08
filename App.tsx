@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
 
-import { Register } from "@screens/Dashboard/Register";
+import { Register } from "@screens/Register";
 
 import {
   useFonts,

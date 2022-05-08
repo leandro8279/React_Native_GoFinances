@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 
-import { Input, Button, TransactionTypeButton } from "@components/index";
+import {
+  Input,
+  Button,
+  TransactionTypeButton,
+  CategorySelect,
+} from "@components/index";
 import { styles } from "./styles";
 
 export function Register() {
-  const [transactionType, setTransactionType] = useState("");
+  const [transactionType, setTransactionType] = useState("up");
 
   function handleTransactionsTypeSelect(type: "up" | "down") {
     setTransactionType(type);
@@ -34,6 +39,7 @@ export function Register() {
               isActive={transactionType === "down"}
             />
           </View>
+          <CategorySelect>Categoria</CategorySelect>
         </View>
         <Button>Enviar</Button>
       </View>
