@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
+import {Dashboard} from "@screens/Dashboard";
+
 import {
   useFonts,
   Poppins_400Regular,
@@ -18,19 +20,6 @@ export default function App() {
     return <ActivityIndicator/>;
   }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-      <View></View>
-    </View>
+    <Dashboard />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
