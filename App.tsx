@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator } from "react-native";
 
-import { Dashboard } from "@screens/Dashboard";
+import { Register } from "@screens/Dashboard/Register";
 
 import {
   useFonts,
@@ -22,7 +22,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <Dashboard />
+      <Register />
     </>
   );
 }

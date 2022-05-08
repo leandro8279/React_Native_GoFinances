@@ -32,7 +32,7 @@ export const styles = ({ type = null }: Props) =>
 		},
 		lastTransaction: {
 			fontFamily: fonts.regular,
-			color: colors.shape,
+			color:type === "total"? colors.shape: colors.text,
 			fontSize: RFValue(12),
 		},
 	});
