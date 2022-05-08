@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
 		borderRadius: 5,
 		paddingVertical: 17,
 		paddingHorizontal: 24,
+		marginBottom:16
 	},
 	title: {
 		fontSize: RFValue(14),

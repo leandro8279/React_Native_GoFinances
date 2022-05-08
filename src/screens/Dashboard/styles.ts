@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
 	transactions: {
 		flex: 1,
 		paddingHorizontal: 24,
-		marginTop: RFPercentage(12),
+		marginTop: RFPercentage(8),
 	},
 	transactionsTitle:{
 		fontSize:RFValue(18),

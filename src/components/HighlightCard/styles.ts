@@ -32,7 +32,7 @@ export const styles = ({ type = null }: Props) =>
 		},
 		lastTransaction: {
 			fontFamily: fonts.regular,
-			color: colors.text,
+			color: colors.shape,
 			fontSize: RFValue(12),
 		},
 	});
