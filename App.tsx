@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import AppLoading from 'expo-app-loading';
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 import {
   useFonts,
@@ -16,7 +15,7 @@ export default function App() {
   });
 
    if (!fontsLoaded) {
-    return <AppLoading />;
+    return <ActivityIndicator/>;
   }
   return (
     <View style={styles.container}>

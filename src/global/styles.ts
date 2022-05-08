@@ -11,3 +11,8 @@ export const colors = {
    text: '#969CB2',
    background: '#F0F2F5',
 }
+export const fonts = {
+   regular: 'Poppins_400Regular',
+   medium: 'Poppins_500Medium',
+   bold: 'Poppins_700Bold'
+ }
