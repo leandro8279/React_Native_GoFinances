@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { colors, fonts } from "@global/styles";
-export const styles = (type?:string) => StyleSheet.create({
+export const styles = (type?:"positive" | "negative") => StyleSheet.create({
 	container: {
 		backgroundColor: colors.shape,
 		borderRadius: 5,

@@ -4,19 +4,21 @@ import { Feather } from "@expo/vector-icons";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { HighlightCard, TransactionCard } from "@components/index";
 
+import { TransactionCardProps } from "@components/TransactionCard";
+
 import { styles } from "./styles";
 
 import { colors } from "@global/styles";
 
+export interface DataListProps extends TransactionCardProps {
+  id: string;
+}
 export function Dashboard() {
-  const types = {
-    positive: "positive",
-    negative: "negative",
-  };
-  const data = [
+  const data: DataListProps[] = [
     {
-      type: types.positive,
-      title: "Desenvolvimento de site 1",
+      id: "1",
+      type: "positive",
+      title: "Desenvolvimento de site",
       amount: "R$ 12.000,00",
       category: {
         name: "Vendas",
@@ -25,7 +27,8 @@ export function Dashboard() {
       date: "13/04/2020",
     },
     {
-      type: types.negative,
+      id: "2",
+      type: "negative",
       title: "Hamburgueria Pizzy",
       amount: "R$ 59,00",
       category: {
@@ -35,14 +38,15 @@ export function Dashboard() {
       date: "10/04/2020",
     },
     {
-      type: types.negative,
+      id: "3",
+      type: "negative",
       title: "Aluguel do apartamento",
       amount: "R$ 1.200,00",
       category: {
         name: "Casa",
         icon: "shopping-bag",
       },
-      date: "13/04/2020",
+      date: "10/04/2020",
     },
   ];
   return (
@@ -92,9 +96,9 @@ export function Dashboard() {
 
       <View style={styles.transactions}>
         <Text style={styles.transactionsTitle}>Listagem</Text>
-        <FlatList
+        <FlatList<DataListProps>
           data={data}
-          keyExtractor={({ title }) => title}
+          keyExtractor={({ id }) => id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingBottom: getBottomSpace(),

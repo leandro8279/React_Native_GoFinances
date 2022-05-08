@@ -10,8 +10,8 @@ interface CategoryProps {
   icon: string;
 }
 
-interface Data {
-  type: string;
+export interface TransactionCardProps {
+  type: "positive" | "negative";
   title: string;
   amount: string;
   category: CategoryProps;
@@ -19,7 +19,7 @@ interface Data {
 }
 
 interface Props {
-  data: Data;
+  data: TransactionCardProps;
 }
 export function TransactionCard({ data }: Props) {
   return (
