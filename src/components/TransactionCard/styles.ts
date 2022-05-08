@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { colors, fonts } from "@global/styles";
-export const styles = StyleSheet.create({
+export const styles = (type?:string) => StyleSheet.create({
 	container: {
 		backgroundColor: colors.shape,
 		borderRadius: 5,
@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
 		fontSize: RFValue(20),
 		fontFamily: fonts.regular,
 		marginTop: 2,
+		color: type === "positive"?colors.success: colors.attention,
 	},
 	footer: {
 		marginTop: 19,
