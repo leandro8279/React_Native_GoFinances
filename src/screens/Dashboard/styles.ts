@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { colors, fonts } from "@global/styles";
 export const styles = StyleSheet.create({
 	container: {
@@ -11,12 +12,13 @@ export const styles = StyleSheet.create({
 		height: RFPercentage(42),
 		backgroundColor: colors.primary,
 		justifyContent: "center",
-		alignItems: "center",
+		alignItems: "flex-start",
 		flexDirection: "row",
 	},
 	wrapper: {
 		width: "100%",
 		paddingHorizontal: 24,
+		marginTop:getStatusBarHeight() + RFValue(28),
 		flexDirection:"row",
 		justifyContent:"space-between",
 		alignItems:"center"
@@ -44,6 +46,9 @@ export const styles = StyleSheet.create({
 		fontFamily: fonts.bold,
 	},
 	cards:{
-		paddingHorizontal:24
+		paddingHorizontal:24,
+		width:"100%",
+		position:"absolute",
+		marginTop:RFPercentage(20)
 	}
 });

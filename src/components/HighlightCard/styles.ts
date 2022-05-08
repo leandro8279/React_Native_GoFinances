@@ -3,9 +3,8 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { colors, fonts } from "@global/styles";
 export const styles = StyleSheet.create({
 	container: {
-		backgroundColor: colors.secondary,
+		backgroundColor: colors.shape,
 		width: RFValue(300),
-		height: 300,
 		borderRadius: 5,
 		paddingVertical: 19,
 		paddingHorizontal: 23,
