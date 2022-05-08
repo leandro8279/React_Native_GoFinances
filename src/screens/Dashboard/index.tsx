@@ -1,8 +1,8 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { ScrollView, View, Text, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-import {HighlightCard } from "@components/HighlightCard";
+import { HighlightCard } from "@components/HighlightCard";
 
 import { styles } from "./styles";
 
@@ -27,7 +27,16 @@ export function Dashboard() {
 					<Feather name="power" size={24} color={colors.secondary} />
 				</View>
 			</View>
-			<HighlightCard />
+			<ScrollView
+				contentContainerStyle={styles.cards}
+				horizontal
+				showsHorizontalScrollIndicator={false}
+			>
+				<HighlightCard />
+				<HighlightCard />
+				<HighlightCard />
+				<HighlightCard />
+			</ScrollView>
 		</View>
 	);
 }

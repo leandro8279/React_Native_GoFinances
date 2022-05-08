@@ -43,4 +43,7 @@ export const styles = StyleSheet.create({
 		color: colors.shape,
 		fontFamily: fonts.bold,
 	},
+	cards:{
+		paddingHorizontal:24
+	}
 });
