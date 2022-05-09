@@ -10,8 +10,6 @@ interface Props extends TextInputProps {
   error: string;
 }
 export function InputForm({ control, name, error, ...rest }: Props) {
-  console.log(error);
-
   return (
     <View style={styles.container}>
       <Controller
