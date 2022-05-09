@@ -10,7 +10,7 @@ import {
 import { styles } from "./styles";
 
 export function Register() {
-  const [transactionType, setTransactionType] = useState("up");
+  const [transactionType, setTransactionType] = useState("");
 
   function handleTransactionsTypeSelect(type: "up" | "down") {
     setTransactionType(type);

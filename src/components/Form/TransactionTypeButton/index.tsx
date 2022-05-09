@@ -5,11 +5,6 @@ import { styles } from "./styles";
 import { colors } from "@global/styles";
 import { RFValue } from "react-native-responsive-fontsize";
 
-const icons = {
-  up: "arrow-up-circle",
-  down: "arrow-down-circle",
-};
-
 interface Props extends TouchableOpacityProps {
   type: "up" | "down";
   title: string;
@@ -20,19 +15,16 @@ export function TransactionTypeButton({
   title,
   isActive,
   ...rest
-}: Props) {
+}: Props): JSX.Element {
   return (
-    <TouchableOpacity
-      {...rest}
-      style={isActive && type === "up" ? styles.up : styles.down}
-    >
+    <TouchableOpacity {...rest} style={styles({ isActive, type }).container}>
       <Feather
-        name={icons[type]}
+        name={type === "up" ? "arrow-up-circle" : "arrow-down-circle"}
         color={type === "up" ? colors.success : colors.attention}
         style={{ marginRight: 12 }}
         size={RFValue(24)}
       />
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles({}).title}>{title}</Text>
     </TouchableOpacity>
   );
 }
