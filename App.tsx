@@ -1,4 +1,3 @@
-import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";

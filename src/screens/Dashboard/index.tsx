@@ -54,12 +54,7 @@ export function Dashboard() {
       <View style={styles.header}>
         <View style={styles.wrapper}>
           <View style={styles.info}>
-            <Image
-              source={{
-                uri: "https://avatars.githubusercontent.com/u/49030804?v=4",
-              }}
-              style={styles.photo}
-            />
+            <Image source={require("@assets/user.png")} style={styles.photo} />
             <View style={styles.user}>
               <Text style={styles.title}>Òla,</Text>
               <Text style={styles.subTitle}>Leandro</Text>
