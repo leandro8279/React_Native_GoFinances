@@ -7,8 +7,11 @@ import { styles } from "./styles";
 interface Props extends TextInputProps {
   control: Control;
   name: string;
+  error: string;
 }
-export function InputForm({ control, name, ...rest }: Props) {
+export function InputForm({ control, name, error, ...rest }: Props) {
+  console.log(error);
+
   return (
     <View style={styles.container}>
       <Controller
@@ -18,6 +21,7 @@ export function InputForm({ control, name, ...rest }: Props) {
         )}
         name={name}
       />
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }
