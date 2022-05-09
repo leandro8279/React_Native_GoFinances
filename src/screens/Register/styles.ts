@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     padding: 24,
+    justifyContent: "space-between",
   },
   transactionsTypes: {
     flexDirection: "row",
