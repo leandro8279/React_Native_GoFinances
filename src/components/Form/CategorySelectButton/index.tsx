@@ -7,10 +7,15 @@ import { colors } from "@global/styles";
 
 interface Props {
   children: string;
+  onPress: () => void;
 }
-export function CategorySelect({ children }: Props) {
+export function CategorySelectButton({ children, onPress }: Props) {
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.7}
+      onPress={onPress}
+    >
       <Text style={styles.title}>{children}</Text>
       <Icon name="chevron-down" size={RFValue(20)} color={colors.text} />
     </TouchableOpacity>

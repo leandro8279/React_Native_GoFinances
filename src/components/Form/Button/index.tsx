@@ -6,10 +6,10 @@ import { styles } from "./styles";
 interface Props extends TouchableOpacityProps {
   children: string;
 }
-export function Button({ children }: Props) {
+export function Button({ children, ...props }: Props) {
   return (
-    <TouchableOpacity style={styles().container} activeOpacity={0.7}>
-      <Text style={styles().title}>{children}</Text>
+    <TouchableOpacity {...props} style={styles.container} activeOpacity={0.7}>
+      <Text style={styles.title}>{children}</Text>
     </TouchableOpacity>
   );
 }

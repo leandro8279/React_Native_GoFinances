@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
 
-import { CategorySelect } from "@screens/CategorySelect";
+import { Register } from "@screens/Register";
 
 import {
   useFonts,
@@ -22,7 +22,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <CategorySelect />
+      <Register />
     </>
   );
 }

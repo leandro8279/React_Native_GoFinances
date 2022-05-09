@@ -3,7 +3,7 @@ import { TransactionCard } from "./TransactionCard";
 import { Input } from "./Form/Input";
 import { Button } from "./Form/Button";
 import { TransactionTypeButton } from "./Form/TransactionTypeButton";
-import { CategorySelect } from "./Form/CategorySelect";
+import { CategorySelectButton } from "./Form/CategorySelectButton";
 
 export {
   HighlightCard,
@@ -11,5 +11,5 @@ export {
   Button,
   Input,
   TransactionTypeButton,
-  CategorySelect,
+  CategorySelectButton,
 };

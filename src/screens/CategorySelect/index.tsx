@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
+import { TouchableOpacity, View, Text, FlatList } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { categories } from "@utils/categories";
 
 import { Button } from "@components/index";
@@ -11,7 +12,7 @@ interface Category {
   name: string;
 }
 interface Props {
-  category: string;
+  category: Category;
   setCategory: (category: Category) => void;
   closeSelectCategory: () => void;
 }
@@ -20,26 +21,32 @@ export function CategorySelect({
   setCategory,
   closeSelectCategory,
 }: Props) {
+  function handleCategorySelect(category: Category) {
+    setCategory(category);
+  }
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Categoria</Text>
+    <GestureHandlerRootView style={styles().container}>
+      <View style={styles().header}>
+        <Text style={styles().title}>Categoria</Text>
       </View>
       <FlatList
         data={categories}
         style={{ flex: 1, width: "100%" }}
         keyExtractor={(item) => item.key}
         renderItem={({ item }) => (
-          <View style={styles.category}>
-            <Icon name={item.icon} style={styles.icon} />
-            <Text style={styles.name}>{item.name}</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => handleCategorySelect(item)}
+            style={styles(category.key === item.key).category}
+          >
+            <Icon name={item.icon} style={styles().icon} />
+            <Text style={styles().name}>{item.name}</Text>
+          </TouchableOpacity>
         )}
-        ItemSeparatorComponent={() => <View style={styles.separado} />}
+        ItemSeparatorComponent={() => <View style={styles().separado} />}
       />
-      <View style={styles.footer}>
-        <Button>Selecionar</Button>
+      <View style={styles().footer}>
+        <Button onPress={closeSelectCategory}>Selecionar</Button>
       </View>
-    </View>
+    </GestureHandlerRootView>
   );
 }
