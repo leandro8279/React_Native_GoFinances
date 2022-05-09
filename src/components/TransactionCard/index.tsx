@@ -4,17 +4,13 @@ import { View, Text } from "react-native";
 import { Feather as Icon } from "@expo/vector-icons";
 
 import { styles } from "./styles";
-
-interface CategoryProps {
-  name: string;
-  icon: string;
-}
+import { categories } from "@utils/categories";
 
 export interface TransactionCardProps {
   type: "positive" | "negative";
-  title: string;
+  name: string;
   amount: string;
-  category: CategoryProps;
+  category: string;
   date: string;
 }
 
@@ -22,9 +18,10 @@ interface Props {
   data: TransactionCardProps;
 }
 export function TransactionCard({ data }: Props) {
+  const [category] = categories.filter((item) => item.key === data.category);
   return (
     <View style={styles().container}>
-      <Text style={styles().title}>Desenvolvimento de site</Text>
+      <Text style={styles().title}>{data.name}</Text>
       <Text style={styles(data.type).amount}>
         {data.type === "negative" && "- "}
         {data.amount}
@@ -32,7 +29,7 @@ export function TransactionCard({ data }: Props) {
       <View style={styles().footer}>
         <View style={styles().category}>
           <Icon name={data.category.icon} style={styles().icon} />
-          <Text style={styles().categoryName}>{data.category.name}</Text>
+          <Text style={styles().categoryName}>{category?.name}</Text>
           <Text style={styles().date}>{data.date}</Text>
         </View>
       </View>
