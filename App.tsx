@@ -9,7 +9,6 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { RootNavigator } from "@navigation/RootNavigator";
 import { SignIn } from "@screens/SignIn";
 import { AuthProvider } from "src/hooks/auth";
 export default function App() {
