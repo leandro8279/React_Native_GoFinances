@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { colors, fonts } from "@global/styles";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 export const styles = () =>
   StyleSheet.create({
     container: {
@@ -35,5 +35,10 @@ export const styles = () =>
       width: "100%",
       height: "30%",
       backgroundColor: colors.secondary,
+    },
+    footerWrapper: {
+      marginTop: RFPercentage(-4),
+      paddingHorizontal: 32,
+      justifyContent: "space-between",
     },
   });
