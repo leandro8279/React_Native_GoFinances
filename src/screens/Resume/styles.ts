@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import { colors, fonts } from "@global/styles";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { RFValue } from "react-native-responsive-fontsize";
 export const styles = () =>
   StyleSheet.create({
@@ -9,9 +8,7 @@ export const styles = () =>
       backgroundColor: colors.background,
     },
     content: {
-      flex: 1,
       paddingHorizontal: 24,
-      paddingBottom: useBottomTabBarHeight(),
     },
     chartContainer: {
       width: "100%",
