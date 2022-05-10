@@ -17,6 +17,7 @@ export interface TransactionCardProps {
 interface Props {
   data: TransactionCardProps;
 }
+
 export function TransactionCard({ data }: Props) {
   const [category] = categories.filter((item) => item.key === data.category);
   return (
