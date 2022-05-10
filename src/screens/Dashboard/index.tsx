@@ -95,7 +95,6 @@ export function Dashboard() {
     );
     const totalInterval = `01 a ${lastTransactionExpensives}`;
     const total = entriesTotal - expensiveTotal;
-    console.log(entriesTotal);
 
     setHighlightData({
       entries: {

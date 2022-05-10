@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Modal,
   View,
-  Text,
   Alert,
   Keyboard,
   TouchableWithoutFeedback,
@@ -17,6 +16,7 @@ import {
   Button,
   TransactionTypeButton,
   CategorySelectButton,
+  Header,
 } from "@components/index";
 
 import { CategorySelect } from "../CategorySelect";
@@ -96,9 +96,7 @@ export function Register({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Cadastro</Text>
-        </View>
+        <Header>Cadastro</Header>
 
         <View style={styles.form}>
           <View>
