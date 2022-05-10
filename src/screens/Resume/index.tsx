@@ -8,9 +8,13 @@ import {
 import { Feather as Icon } from "@expo/vector-icons";
 import { Header } from "@components/Header";
 import { HistoryCard } from "@components/HistoryCard";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { VictoryPie } from "victory-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { addMonths, subMonths, format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
 import { categories } from "@utils/categories";
 
 import { styles } from "./styles";
@@ -33,16 +37,27 @@ interface CategoryData {
   percent: string;
 }
 export function Resume() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
     []
   );
+  function handleDateChange(action: "next" | "prev") {
+    if (action === "next") {
+      setSelectedDate(addMonths(selectedDate, 1));
+    } else {
+      setSelectedDate(subMonths(selectedDate, 1));
+    }
+  }
   async function loadData() {
     const dataKey = "@gofinances:transactions";
     const response = await AsyncStorage.getItem(dataKey);
     const responseFormatted = response ? JSON.parse(response) : [];
 
     const expensives = responseFormatted.filter(
-      (expensive: TransactionData) => expensive.type === "negative"
+      (expensive: TransactionData) =>
+        expensive.type === "negative" &&
+        new Date(expensive.date).getMonth() === selectedDate.getMonth() &&
+        new Date(expensive.date).getFullYear() === selectedDate.getFullYear()
     );
     const expensivesTotal = expensives.reduce(
       (accumulator: number, expensive: TransactionData) => {
@@ -84,7 +99,7 @@ export function Resume() {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [selectedDate]);
 
   return (
     <View style={styles().container}>
@@ -94,13 +109,15 @@ export function Resume() {
         contentContainerStyle={styles().content}
       >
         <View style={styles().monthSelect}>
-          <Button>
+          <Button onPress={() => handleDateChange("prev")}>
             <Icon name="chevron-left" size={RFValue(24)} />
           </Button>
 
-          <Text style={styles().month}>Maio</Text>
+          <Text style={styles().month}>
+            {format(selectedDate, "MMMM, yyyy", { locale: ptBR })}
+          </Text>
 
-          <Button>
+          <Button onPress={() => handleDateChange("next")}>
             <Icon name="chevron-right" size={RFValue(24)} />
           </Button>
         </View>
