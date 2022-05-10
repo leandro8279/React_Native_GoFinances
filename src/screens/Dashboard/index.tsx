@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, View, Text, Image, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
@@ -10,6 +10,7 @@ import { TransactionCardProps } from "@components/TransactionCard";
 import { styles } from "./styles";
 
 import { colors } from "@global/styles";
+import { useFocusEffect } from "@react-navigation/native";
 
 export interface DataListProps extends TransactionCardProps {
   id: string;
@@ -19,6 +20,7 @@ export function Dashboard() {
 
   async function loadTransactions() {
     const dataKey = "@gofinances:transactions";
+    // await AsyncStorage.removeItem(dataKey);
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
 
@@ -45,14 +47,17 @@ export function Dashboard() {
         };
       }
     );
-
     setData(transactionsFormatted);
-    console.log(transactionsFormatted);
   }
 
   useEffect(() => {
     loadTransactions();
   }, []);
+  useFocusEffect(
+    useCallback(() => {
+      loadTransactions();
+    }, [])
+  );
   return (
     <View style={styles.container}>
       <View style={styles.header}>
