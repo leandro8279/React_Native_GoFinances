@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { SignInSocialButton } from "@components/SignInSocialButton";
 
@@ -12,14 +12,27 @@ import { useAuth } from "src/hooks/auth";
 
 import { styles } from "./styles";
 export function SignIn() {
-  const { user, signInWithGoogle } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { user, signInWithGoogle, signInWithApple } = useAuth();
   console.log(user);
   async function handleSignInWithGoogle() {
     try {
-      await signInWithGoogle();
+      setLoading(true);
+      return await signInWithGoogle();
     } catch (error) {
       console.log(error);
       alert("Não foi possível conectar a conta Google");
+      setLoading(false);
+    }
+  }
+  async function handleSignInWithApple() {
+    try {
+      setLoading(true);
+      return await signInWithApple();
+    } catch (error) {
+      console.log(error);
+      alert("Não foi possível conectar a conta Apple");
+      setLoading(false);
     }
   }
   return (
@@ -48,12 +61,16 @@ export function SignIn() {
           <SignInSocialButton
             onPress={handleSignInWithGoogle}
             svg={GoogleSvg}
-            loading={false}
+            loading={loading}
           >
             Entrar com Google
           </SignInSocialButton>
 
-          <SignInSocialButton svg={AppleSvg}>
+          <SignInSocialButton
+            onPress={handleSignInWithApple}
+            svg={AppleSvg}
+            loading={loading}
+          >
             Entrar com Apple
           </SignInSocialButton>
         </View>
