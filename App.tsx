@@ -11,6 +11,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { RootNavigator } from "@navigation/RootNavigator";
 import { SignIn } from "@screens/SignIn";
+import { AuthProvider } from "src/hooks/auth";
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -24,7 +25,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="light" />
-      <SignIn />
+      <AuthProvider>
+        <SignIn />
+      </AuthProvider>
     </NavigationContainer>
   );
 }
