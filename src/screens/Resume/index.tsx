@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ScrollView,
   Text,
@@ -19,6 +19,8 @@ import { categories } from "@utils/categories";
 
 import { styles } from "./styles";
 import { colors } from "@global/styles";
+import { useFocusEffect } from "@react-navigation/native";
+import { Loading } from "@components/Loading";
 
 interface TransactionData {
   type: "positive" | "negative";
@@ -37,11 +39,13 @@ interface CategoryData {
   percent: string;
 }
 export function Resume() {
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
     []
   );
   function handleDateChange(action: "next" | "prev") {
+    setIsLoading(true);
     if (action === "next") {
       setSelectedDate(addMonths(selectedDate, 1));
     } else {
@@ -95,58 +99,64 @@ export function Resume() {
       }
     });
     setTotalByCategories(totalByCategory);
+    setIsLoading(false);
   }
 
-  useEffect(() => {
-    loadData();
-  }, [selectedDate]);
-
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, [selectedDate])
+  );
   return (
     <View style={styles().container}>
       <Header>Resumo por categoria</Header>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles().content}
-      >
-        <View style={styles().monthSelect}>
-          <Button onPress={() => handleDateChange("prev")}>
-            <Icon name="chevron-left" size={RFValue(24)} />
-          </Button>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles().content}
+        >
+          <View style={styles().monthSelect}>
+            <Button onPress={() => handleDateChange("prev")}>
+              <Icon name="chevron-left" size={RFValue(24)} />
+            </Button>
 
-          <Text style={styles().month}>
-            {format(selectedDate, "MMMM, yyyy", { locale: ptBR })}
-          </Text>
+            <Text style={styles().month}>
+              {format(selectedDate, "MMMM, yyyy", { locale: ptBR })}
+            </Text>
 
-          <Button onPress={() => handleDateChange("next")}>
-            <Icon name="chevron-right" size={RFValue(24)} />
-          </Button>
-        </View>
+            <Button onPress={() => handleDateChange("next")}>
+              <Icon name="chevron-right" size={RFValue(24)} />
+            </Button>
+          </View>
 
-        <View style={styles().chartContainer}>
-          <VictoryPie
-            data={totalByCategories}
-            colorScale={totalByCategories.map((category) => category.color)}
-            style={{
-              labels: {
-                fontSize: RFValue(18),
-                fontWeight: "bold",
-                fill: colors.shape,
-              },
-            }}
-            labelRadius={50}
-            x="percent"
-            y="total"
-          />
-        </View>
-        {totalByCategories.map((item) => (
-          <HistoryCard
-            key={item.key}
-            title={item.name}
-            amount={item.totalFormatted}
-            color={item.color}
-          />
-        ))}
-      </ScrollView>
+          <View style={styles().chartContainer}>
+            <VictoryPie
+              data={totalByCategories}
+              colorScale={totalByCategories.map((category) => category.color)}
+              style={{
+                labels: {
+                  fontSize: RFValue(18),
+                  fontWeight: "bold",
+                  fill: colors.shape,
+                },
+              }}
+              labelRadius={50}
+              x="percent"
+              y="total"
+            />
+          </View>
+          {totalByCategories.map((item) => (
+            <HistoryCard
+              key={item.key}
+              title={item.name}
+              amount={item.totalFormatted}
+              color={item.color}
+            />
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }
