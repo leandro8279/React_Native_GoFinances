@@ -7,4 +7,8 @@ export const styles = () =>
       backgroundColor: colors.background,
     },
     content: { flex: 1, paddingHorizontal: 24 },
+    chartContainer: {
+      width: "100%",
+      alignItems: "center",
+    },
   });
