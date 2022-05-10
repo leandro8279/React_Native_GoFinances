@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
+import {
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity as Button,
+} from "react-native";
+import { Feather as Icon } from "@expo/vector-icons";
 import { Header } from "@components/Header";
 import { HistoryCard } from "@components/HistoryCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { VictoryPie } from "victory-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { categories } from "@utils/categories";
-import { ScrollView, View } from "react-native";
 
 import { styles } from "./styles";
 import { colors } from "@global/styles";
@@ -83,7 +89,22 @@ export function Resume() {
   return (
     <View style={styles().container}>
       <Header>Resumo por categoria</Header>
-      <ScrollView contentContainerStyle={styles().content}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles().content}
+      >
+        <View style={styles().monthSelect}>
+          <Button>
+            <Icon name="chevron-left" size={RFValue(24)} />
+          </Button>
+
+          <Text style={styles().month}>Maio</Text>
+
+          <Button>
+            <Icon name="chevron-right" size={RFValue(24)} />
+          </Button>
+        </View>
+
         <View style={styles().chartContainer}>
           <VictoryPie
             data={totalByCategories}
