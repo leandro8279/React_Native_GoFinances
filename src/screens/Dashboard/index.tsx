@@ -3,7 +3,7 @@ import { ScrollView, View, Text, Image, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
 import { getBottomSpace } from "react-native-iphone-x-helper";
-import { HighlightCard, TransactionCard } from "@components/index";
+import { HighlightCard, TransactionCard, Loading } from "@components/index";
 
 import { TransactionCardProps } from "@components/TransactionCard";
 
@@ -25,6 +25,7 @@ interface HighlightData {
   total: HighlightProps;
 }
 export function Dashboard() {
+  const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<DataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<HighlightData>(
     {} as HighlightData
@@ -89,6 +90,7 @@ export function Dashboard() {
         }),
       },
     });
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -113,44 +115,50 @@ export function Dashboard() {
           <Feather name="power" size={24} color={colors.secondary} />
         </View>
       </View>
-      <ScrollView
-        horizontal
-        contentContainerStyle={styles.cardsContainer}
-        style={styles.cards}
-        showsHorizontalScrollIndicator={false}
-      >
-        <HighlightCard
-          type="up"
-          title="Entradas"
-          amount={highlightData.entries.amount}
-          lastTransaction="Última entrada dia 13 de abril"
-        />
-        <HighlightCard
-          type="down"
-          title="Saídas"
-          amount={highlightData.expensives.amount}
-          lastTransaction="Última saída dia 13 de abril"
-        />
-        <HighlightCard
-          type="total"
-          title="Total"
-          amount={highlightData.total.amount}
-          lastTransaction="01 à 16 de abril"
-        />
-      </ScrollView>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <ScrollView
+            horizontal
+            contentContainerStyle={styles.cardsContainer}
+            style={styles.cards}
+            showsHorizontalScrollIndicator={false}
+          >
+            <HighlightCard
+              type="up"
+              title="Entradas"
+              amount={highlightData.entries.amount}
+              lastTransaction="Última entrada dia 13 de abril"
+            />
+            <HighlightCard
+              type="down"
+              title="Saídas"
+              amount={highlightData.expensives.amount}
+              lastTransaction="Última saída dia 13 de abril"
+            />
+            <HighlightCard
+              type="total"
+              title="Total"
+              amount={highlightData.total.amount}
+              lastTransaction="01 à 16 de abril"
+            />
+          </ScrollView>
 
-      <View style={styles.transactions}>
-        <Text style={styles.transactionsTitle}>Listagem</Text>
-        <FlatList<DataListProps>
-          data={transactions}
-          keyExtractor={({ id }) => id}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingBottom: getBottomSpace(),
-          }}
-          renderItem={({ item }) => <TransactionCard data={item} />}
-        />
-      </View>
+          <View style={styles.transactions}>
+            <Text style={styles.transactionsTitle}>Listagem</Text>
+            <FlatList<DataListProps>
+              data={transactions}
+              keyExtractor={({ id }) => id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{
+                paddingBottom: getBottomSpace(),
+              }}
+              renderItem={({ item }) => <TransactionCard data={item} />}
+            />
+          </View>
+        </>
+      )}
     </View>
   );
 }
