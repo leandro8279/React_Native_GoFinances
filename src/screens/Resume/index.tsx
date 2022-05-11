@@ -21,6 +21,7 @@ import { styles } from "./styles";
 import { colors } from "@global/styles";
 import { useFocusEffect } from "@react-navigation/native";
 import { Loading } from "@components/Loading";
+import { useAuth } from "src/hooks/auth";
 
 interface TransactionData {
   type: "positive" | "negative";
@@ -39,6 +40,7 @@ interface CategoryData {
   percent: string;
 }
 export function Resume() {
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
@@ -53,7 +55,7 @@ export function Resume() {
   }
   async function loadData() {
     setIsLoading(true);
-    const dataKey = "@gofinances:transactions";
+    const dataKey = `@gofinances:transactions/${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const responseFormatted = response ? JSON.parse(response) : [];
 

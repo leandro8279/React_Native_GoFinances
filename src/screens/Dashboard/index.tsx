@@ -11,6 +11,7 @@ import { styles } from "./styles";
 
 import { colors } from "@global/styles";
 import { useFocusEffect } from "@react-navigation/native";
+import { useAuth } from "src/hooks/auth";
 
 export interface DataListProps extends TransactionCardProps {
   id: string;
@@ -26,6 +27,7 @@ interface HighlightData {
   total: HighlightProps;
 }
 export function Dashboard() {
+  const { user, signOut } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<DataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<HighlightData>(
@@ -37,12 +39,18 @@ export function Dashboard() {
     collection: DataListProps[],
     type: "positive" | "negative"
   ) {
+    const collectionFiltered = collection.filter(
+      (transaction) => transaction.type === type
+    );
+    if (collectionFiltered.length === 0) {
+      return 0;
+    }
     const lastTransaction = new Date(
       Math.max.apply(
         Math,
-        collection
-          .filter((transaction) => transaction.type === type)
-          .map((transaction) => new Date(transaction.date).getTime())
+        collectionFiltered.map((transaction) =>
+          new Date(transaction.date).getTime()
+        )
       )
     );
 
@@ -52,8 +60,7 @@ export function Dashboard() {
     )}`;
   }
   async function loadTransactions() {
-    const dataKey = "@gofinances:transactions";
-    // await AsyncStorage.removeItem(dataKey);
+    const dataKey = `@gofinances:transactions/${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
     const transactionsFormatted: DataListProps[] = transactions.map(
@@ -93,7 +100,10 @@ export function Dashboard() {
       transactions,
       "negative"
     );
-    const totalInterval = `01 a ${lastTransactionExpensives}`;
+    const totalInterval =
+      lastTransactionExpensives === 0
+        ? "Não há transações"
+        : `01 a ${lastTransactionExpensives}`;
     const total = entriesTotal - expensiveTotal;
 
     setHighlightData({
@@ -102,14 +112,20 @@ export function Dashboard() {
           style: "currency",
           currency: "BRL",
         }),
-        lastTransaction: `Última entrada dia ${lastTransactionEntries}`,
+        lastTransaction:
+          lastTransactionEntries === 0
+            ? "Não há transações"
+            : `Última entrada dia ${lastTransactionEntries}`,
       },
       expensives: {
         amount: expensiveTotal.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
-        lastTransaction: `Última saída dia ${lastTransactionExpensives}`,
+        lastTransaction:
+          lastTransactionExpensives === 0
+            ? "Não há transações"
+            : `Última saída dia ${lastTransactionExpensives}`,
       },
       total: {
         amount: total.toLocaleString("pt-BR", {
@@ -132,13 +148,18 @@ export function Dashboard() {
       <View style={styles.header}>
         <View style={styles.wrapper}>
           <View style={styles.info}>
-            <Image source={require("@assets/user.png")} style={styles.photo} />
+            <Image source={{ uri: user.photo }} style={styles.photo} />
             <View style={styles.user}>
               <Text style={styles.title}>Òla,</Text>
-              <Text style={styles.subTitle}>Leandro</Text>
+              <Text style={styles.subTitle}>{user.name}</Text>
             </View>
           </View>
-          <Feather name="power" size={24} color={colors.secondary} />
+          <Feather
+            name="power"
+            size={24}
+            color={colors.secondary}
+            onPress={() => signOut()}
+          />
         </View>
       </View>
       {isLoading ? (

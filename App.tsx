@@ -1,16 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
-import AppLoading from "expo-app-loading";
+import {Loading}from "@components/Loading";
 import { NavigationContainer } from "@react-navigation/native";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 import {
   useFonts,
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { SignIn } from "@screens/SignIn";
 import { AuthProvider } from "src/hooks/auth";
+import { RootNativator } from "@navigation/index";
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -19,14 +22,12 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <Loading/>;
   }
   return (
-    <NavigationContainer>
+    <AuthProvider>
       <StatusBar style="light" />
-      <AuthProvider>
-        <SignIn />
-      </AuthProvider>
-    </NavigationContainer>
+      <RootNativator />
+    </AuthProvider>
   );
 }

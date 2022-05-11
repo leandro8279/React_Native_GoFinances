@@ -21,6 +21,7 @@ import {
 
 import { CategorySelect } from "../CategorySelect";
 import { styles } from "./styles";
+import { useAuth } from "src/hooks/auth";
 interface FormData {
   name: string;
   amount: string;
@@ -34,6 +35,7 @@ const schema = Yup.object().shape({
 });
 
 export function Register({ navigation }) {
+  const { user } = useAuth();
   const [transactionType, setTransactionType] = useState("");
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
 
@@ -60,7 +62,7 @@ export function Register({ navigation }) {
   function handleCloseSelectCategoryModal() {
     setCategoryModalOpen(false);
   }
-  const dataKey = "@gofinances:transactions";
+  const dataKey = `@gofinances:transactions/${user.id}`;
   async function handleRegister(form: FormData) {
     if (!transactionType) return Alert.alert("Selecione o tipo da transação");
 
@@ -100,7 +102,7 @@ export function Register({ navigation }) {
 
         <View style={styles.form}>
           <View>
-            <InputForm
+             <InputForm
               name="name"
               control={control}
               placeholder="Nome"

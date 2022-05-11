@@ -12,27 +12,27 @@ import { useAuth } from "src/hooks/auth";
 
 import { styles } from "./styles";
 export function SignIn() {
-  const [loading, setLoading] = useState(false);
-  const { user, signInWithGoogle, signInWithApple } = useAuth();
-  console.log(user);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const [loadingApple, setLoadingApple] = useState(false);
+  const { signInWithGoogle, signInWithApple } = useAuth();
   async function handleSignInWithGoogle() {
     try {
-      setLoading(true);
+      setLoadingGoogle(true);
       return await signInWithGoogle();
     } catch (error) {
       console.log(error);
       alert("Não foi possível conectar a conta Google");
-      setLoading(false);
+      setLoadingGoogle(false);
     }
   }
   async function handleSignInWithApple() {
     try {
-      setLoading(true);
+      setLoadingApple(true);
       return await signInWithApple();
     } catch (error) {
       console.log(error);
       alert("Não foi possível conectar a conta Apple");
-      setLoading(false);
+      setLoadingApple(false);
     }
   }
   return (
@@ -61,7 +61,7 @@ export function SignIn() {
           <SignInSocialButton
             onPress={handleSignInWithGoogle}
             svg={GoogleSvg}
-            loading={loading}
+            loading={loadingGoogle}
           >
             Entrar com Google
           </SignInSocialButton>
@@ -69,7 +69,7 @@ export function SignIn() {
           <SignInSocialButton
             onPress={handleSignInWithApple}
             svg={AppleSvg}
-            loading={loading}
+            loading={loadingApple}
           >
             Entrar com Apple
           </SignInSocialButton>

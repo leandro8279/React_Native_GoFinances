@@ -7,7 +7,7 @@ import { colors } from "@global/styles";
 import { Platform } from "react-native";
 import { Resume } from "@screens/Resume";
 const { Navigator, Screen } = createBottomTabNavigator();
-export function RootNavigator() {
+export function AppNavigator() {
   return (
     <Navigator
       screenOptions={{
